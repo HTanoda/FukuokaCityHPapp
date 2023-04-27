@@ -12,7 +12,7 @@ def get_data(url):
     return ' '.join([p.text for p in soup.find_all('p')])
 
 def summarize(text):
-    completion = openai.Completion.create(engine="gpt-3.5-turbo", prompt=f"{text}\n\nSummarize:", max_tokens=60)
+    completion = openai.Completion.create(engine="gpt-3.5-turbo", prompt=f"{text}\n\nSummarize:", max_tokens=500)
     return completion.choices[0].text.strip()
 
 st.title("Fukuoka City Information Summarizer")
