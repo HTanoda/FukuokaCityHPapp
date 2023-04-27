@@ -1,8 +1,7 @@
 import streamlit as st
 import requests
 from bs4 import BeautifulSoup
-from openai import OpenAI
-from openai.api_resources.completion import Completion
+import openai
 
 openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
@@ -13,7 +12,7 @@ def get_data(url):
     return ' '.join([p.text for p in soup.find_all('p')])
 
 def summarize(text):
-    completion = Completion.create(engine="text-davinci-002", prompt=f"{text}\n\nSummarize:", max_tokens=60)
+    completion = openai.Completion.create(engine="gpt-3.5-turbo", prompt=f"{text}\n\nSummarize:", max_tokens=60)
     return completion.choices[0].text.strip()
 
 st.title("Fukuoka City Information Summarizer")
