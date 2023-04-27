@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import openai
 
-openai.api_key = "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"#st.secrets.OpenAIAPI.openai_api_key
+openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 @st.cache
 def get_data(url):
