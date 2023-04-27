@@ -12,10 +12,13 @@ def get_data(url):
     return ' '.join([p.text for p in soup.find_all('p')])
 
 def summarize(text):
-    completion = openai.Completion.create(engine="gpt-3.5-turbo", prompt=f"{text}\n\nSummarize:", max_tokens=500)
-    return completion.choices[0].text.strip()
+    completion = openai.Completion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": f"次の文章を要約してください：{text}"}],
+    )
+    return completion.choices[0].message.content
 
-st.title("Fukuoka City Information Summarizer")
+st.title("福岡市HP要約")
 
 keyword = st.text_input("Enter a keyword")
 
