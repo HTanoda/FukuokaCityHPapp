@@ -14,9 +14,12 @@ def get_data(url):
 def summarize(text):
     completion = openai.Completion.create(
         model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": f"次の文章を要約してください：{text}"}],
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": f"次の文章を要約してください：{text}"}
+        ],
     )
-    return completion.choices[0].message.content
+    return completion['choices'][0]['message']['content']
 
 st.title("福岡市HP要約")
 
