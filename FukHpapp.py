@@ -26,7 +26,7 @@ st.title("福岡市HP要約")
 keyword = st.text_input("Enter a keyword")
 
 if keyword:
-    url = f"https://www.city.fukuoka.lg.jp/search.html?q={keyword}"  # replace with actual search URL
+    url = f"https://www.city.fukuoka.lg.jp//search/search.html?q={keyword}"  # replace with actual search URL
     data = get_data(url)
     summary = summarize(data)
     
