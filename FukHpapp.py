@@ -12,7 +12,7 @@ def get_data(url):
     return ' '.join([p.text for p in soup.find_all('p')])
 
 def summarize(text):
-    completion = openai.Completion.create(
+    completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
