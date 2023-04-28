@@ -30,8 +30,10 @@ def get_search_results(search_query):
     # BeautifulSoupオブジェクトを作成
     soup = BeautifulSoup(page.content, "html.parser")
     
-    # 最初の検索結果を取得
-    first_result = soup.find_all('div', class_='g')[0].text
+    # 検索結果を取得
+    results = soup.find_all('div', class_='g')
+    # 最初の検索結果を取得、存在しなければ空文字を返す
+    first_result = results[0].text if results else ""
     
     return first_result
 
