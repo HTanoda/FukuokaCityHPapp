@@ -25,6 +25,7 @@ def get_search_results(search_query):
     
     # ページの内容を取得
     page = requests.get(search_url)
+    time.sleep(3)
     
     # BeautifulSoupオブジェクトを作成
     soup = BeautifulSoup(page.content, "html.parser")
