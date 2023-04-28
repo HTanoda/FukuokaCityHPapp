@@ -1,20 +1,11 @@
 import streamlit as st
 import requests
 from bs4 import BeautifulSoup
-from openai import OpenAI, ChatCompletion
+from openai
 
 
 # OpenAI APIキーの設定
 openai.api_key = st.secrets.OpenAIAPI.openai_api_key
-
-# GPT-3の設定
-gpt3 = ChatCompletion.create(
-  model="gpt-3.5-turbo",
-  messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Translate this English text to French: {input_text}"}
-    ]
-)
 
 @st.cache
 def generate_search_query(input_keyword):
