@@ -18,13 +18,18 @@ gpt3 = ChatCompletion.create(
 
 @st.cache
 def generate_search_query(input_keyword):
-    # GPT-3を使用して検索クエリを生成
-    response = gpt3.complete(prompt=f"Generate a search query for the keyword: {input_keyword}")
-    return response.choices[0].text.strip()
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": f"次のキーワードから検索クエリを生成してください：{input_keyword}"}
+        ],
+    )
+    return completion['choices'][0]['message']['content']
 
 @st.cache
 def get_search_results(search_query):
-    # サイト内検索のURL (この例ではGoogleを使用)
+    # サイト内検索のURL
     search_url = f"https://www.city.fukuoka.lg.jp//search/search.html?q={search_query}"
     
     # ページの内容を取得
@@ -40,9 +45,14 @@ def get_search_results(search_query):
 
 @st.cache
 def summarize_content(content):
-    # GPT-3を使用して内容を要約
-    response = gpt3.complete(prompt=f"Summarize the following content: {content}")
-    return response.choices[0].text.strip()
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": f"次の文章を要約してください：{content}"}
+        ],
+    )
+    return completion['choices'][0]['message']['content']
 
 # Streamlitアプリの設定
 st.title('Search Query Generator and Summarizer')
