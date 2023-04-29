@@ -22,19 +22,26 @@ def generate_search_query(input_keyword):
 @st.cache
 def get_search_results(search_query):
     # サイト内検索のURL
-    search_url = f"https://www.city.fukuoka.lg.jp/search/search.html?q={search_query}#gsc.tab=0&gsc.q={search_query}&gsc.page=1"
+    googleSearch = 'https://www.google.co.jp/search'
+    kw = f"{search_query}"
+    page = requests.get(googleSearch, params={'site': 'https://www.city.fukuoka.lg.jp/','q': {kw},'num':1})
+    #search_url = f"https://www.city.fukuoka.lg.jp/search/search.html?q={search_query}#gsc.tab=0&gsc.q={search_query}&gsc.page=1"
     
     # ページの内容を取得
-    page = requests.get(search_url)
+    #page = requests.get(search_url)
     time.sleep(3)
     
     # BeautifulSoupオブジェクトを作成
     soup = BeautifulSoup(page.content, "html.parser")
     
     # 検索結果を取得
-    results = soup.find_all('div', class_='g')
+    #results = soup.find_all('div', class_='g')
+    searchResults = soup.select('.r > a')
+    import re
+    for searchResult in searchResults:
+    first_result = re.sub("\/url\?q=","",searchResult.get('href'))
     # 最初の検索結果を取得、存在しなければ空文字を返す
-    first_result = results[0].text if results else ""
+    #first_result = results[0].text if results else ""
     
     return first_result
 
