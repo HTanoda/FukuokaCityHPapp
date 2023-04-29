@@ -25,10 +25,8 @@ def get_search_results(search_query):
     googleSearch = 'https://www.google.co.jp/search'
     kw = f"{search_query}"
     page = requests.get(googleSearch, params={'site': 'https://www.city.fukuoka.lg.jp/','q': {kw},'num':1})
-    #search_url = f"https://www.city.fukuoka.lg.jp/search/search.html?q={search_query}#gsc.tab=0&gsc.q={search_query}&gsc.page=1"
     
     # ページの内容を取得
-    #page = requests.get(search_url)
     time.sleep(3)
     
     # BeautifulSoupオブジェクトを作成
@@ -39,11 +37,9 @@ def get_search_results(search_query):
     searchResults = soup.select('.r > a')
     import re
     for searchResult in searchResults:
-    first_result = re.sub("\/url\?q=","",searchResult.get('href'))
-    # 最初の検索結果を取得、存在しなければ空文字を返す
-    #first_result = results[0].text if results else ""
-    
-    return first_result
+        first_results = re.sub("\/url\?q=","",searchResult.get('href'))
+   
+    return first_results
 
 @st.cache
 def summarize_content(content):
