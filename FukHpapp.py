@@ -36,6 +36,7 @@ def get_search_results(search_query):
     #results = soup.find_all('div', class_='g')
     searchResults = soup.select('.r > a')
     import re
+    first_results = None  # Default value
     for searchResult in searchResults:
         first_results = re.sub("\/url\?q=","",searchResult.get('href'))
    
