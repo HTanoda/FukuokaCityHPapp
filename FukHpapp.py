@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 from bs4 import BeautifulSoup
 import openai
+import time
 
 
 # OpenAI APIキーの設定
@@ -21,7 +22,7 @@ def generate_search_query(input_keyword):
 @st.cache
 def get_search_results(search_query):
     # サイト内検索のURL
-    search_url = f"site:https://www.google.com/ {search_query}"
+    search_url = f"https://www.city.fukuoka.lg.jp/search/search.html?q={search_query}"
     
     # ページの内容を取得
     page = requests.get(search_url)
